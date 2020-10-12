@@ -176,6 +176,7 @@ class AvatarEditor extends React.Component {
     disableBoundaryChecks: PropTypes.bool,
     disableHiDPIScaling: PropTypes.bool,
     disableCanvasRotation: PropTypes.bool,
+    outBoundFillColor: PropTypes.string,
   }
 
   static defaultProps = {
@@ -402,10 +403,14 @@ class AvatarEditor extends React.Component {
       canvas.width = width
       canvas.height = height
     }
-
+    const context = canvas.getContext('2d')
     // don't paint a border here, as it is the resulting image
-    this.paintImage(canvas.getContext('2d'), this.state.image, 0, 1)
-
+    this.paintImage(context, this.state.image, 0, 1)
+    if (this.props.outBoundFillColor) {
+      context.globalCompositeOperation = "destination-over"
+      context.fillStyle = this.props.outBoundFillColor
+      context.fillRect(0, 0, canvas.width, canvas.height)
+    }
     return canvas
   }
 
