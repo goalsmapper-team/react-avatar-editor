@@ -733,6 +733,7 @@ class AvatarEditor extends React.Component {
       onPositionChange,
       disableBoundaryChecks,
       disableHiDPIScaling,
+      disableCanvasRotation,
       ...rest
     } = this.props
 
