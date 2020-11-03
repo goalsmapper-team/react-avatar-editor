@@ -383,7 +383,11 @@ class AvatarEditor extends React.Component {
     }
 
     context.drawImage(image.resource, -cropRect.x, -cropRect.y)
-
+    if (this.props.outBoundFillColor) {
+      context.globalCompositeOperation = "destination-over"
+      context.fillStyle = this.props.outBoundFillColor
+      context.fillRect(0, 0, canvas.width, canvas.height)
+    }
     return canvas
   }
 
@@ -734,6 +738,7 @@ class AvatarEditor extends React.Component {
       disableBoundaryChecks,
       disableHiDPIScaling,
       disableCanvasRotation,
+      outBoundFillColor,
       ...rest
     } = this.props
 
